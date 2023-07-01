@@ -1,5 +1,12 @@
 import { Comment } from "src/comments/entities/comment.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity()
 export class Task {
@@ -8,6 +15,9 @@ export class Task {
 
   @Column()
   title: string;
+
+  @ManyToOne((type) => User, (user) => user.tasks)
+  user: User;
 
   @OneToMany((type) => Comment, (comment) => comment.task)
   comments: Comment[];
