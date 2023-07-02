@@ -18,6 +18,7 @@ const tasks_service_1 = require("./tasks.service");
 const create_task_dto_1 = require("./dto/create-task.dto");
 const update_task_dto_1 = require("./dto/update-task.dto");
 const passport_1 = require("@nestjs/passport");
+const swagger_1 = require("@nestjs/swagger");
 let TasksController = exports.TasksController = class TasksController {
     constructor(tasksService) {
         this.tasksService = tasksService;
@@ -75,6 +76,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TasksController.prototype, "remove", null);
 exports.TasksController = TasksController = __decorate([
+    (0, swagger_1.ApiTags)("Tasks"),
     (0, common_1.Controller)("tasks"),
     __metadata("design:paramtypes", [tasks_service_1.TasksService])
 ], TasksController);

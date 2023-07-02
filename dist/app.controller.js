@@ -18,6 +18,7 @@ const passport_1 = require("@nestjs/passport");
 const create_user_dto_1 = require("./users/dto/create-user.dto");
 const users_service_1 = require("./users/users.service");
 const auth_service_1 = require("./auth/auth.service");
+const swagger_1 = require("@nestjs/swagger");
 let AppController = exports.AppController = class AppController {
     constructor(authService, usersService) {
         this.authService = authService;
@@ -46,6 +47,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "login", null);
 exports.AppController = AppController = __decorate([
+    (0, swagger_1.ApiTags)("Auth"),
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [auth_service_1.AuthService,
         users_service_1.UsersService])

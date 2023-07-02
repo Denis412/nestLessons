@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const comments_service_1 = require("./comments.service");
 const create_comment_dto_1 = require("./dto/create-comment.dto");
 const update_comment_dto_1 = require("./dto/update-comment.dto");
+const swagger_1 = require("@nestjs/swagger");
+const comment_entity_1 = require("./entities/comment.entity");
 let CommentsController = exports.CommentsController = class CommentsController {
     constructor(commentsService) {
         this.commentsService = commentsService;
@@ -38,6 +40,12 @@ let CommentsController = exports.CommentsController = class CommentsController {
     }
 };
 __decorate([
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: "Комментарий создан",
+        type: comment_entity_1.Comment,
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: "Неавторизованно" }),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -51,29 +59,31 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_comment_dto_1.UpdateCommentDto]),
     __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "remove", null);
 exports.CommentsController = CommentsController = __decorate([
-    (0, common_1.Controller)('comments'),
+    (0, swagger_1.ApiTags)("Comments"),
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, common_1.Controller)("comments"),
     __metadata("design:paramtypes", [comments_service_1.CommentsService])
 ], CommentsController);
 //# sourceMappingURL=comments.controller.js.map
