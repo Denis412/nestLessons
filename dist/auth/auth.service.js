@@ -22,7 +22,7 @@ let AuthService = exports.AuthService = class AuthService {
     async validateUser(email, password) {
         const user = await this.usersService.findOne(email);
         if (user && (await bcrypt.compare(password, user.password))) {
-            const { password, ...result } = user;
+            const { ...result } = user;
             return result;
         }
         return null;
@@ -36,7 +36,6 @@ let AuthService = exports.AuthService = class AuthService {
 };
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [users_service_1.UsersService,
-        jwt_1.JwtService])
+    __metadata("design:paramtypes", [users_service_1.UsersService, jwt_1.JwtService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

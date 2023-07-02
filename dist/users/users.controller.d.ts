@@ -1,7 +1,10 @@
 import { UsersService } from "./users.service";
-import { AuthService } from "src/auth/auth.service";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { User } from "./entities/user.entity";
+import { DeleteResult } from "typeorm";
 export declare class UsersController {
     private readonly usersService;
-    private authService;
-    constructor(usersService: UsersService, authService: AuthService);
+    constructor(usersService: UsersService);
+    update(id: string, updateUserDto: UpdateUserDto): Promise<UpdateUserDto & User>;
+    remove(id: string): Promise<DeleteResult>;
 }

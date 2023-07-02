@@ -24,11 +24,11 @@ __decorate([
     __metadata("design:type", String)
 ], Task.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)((type) => user_entity_1.User, (user) => user.tasks),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.tasks),
     __metadata("design:type", user_entity_1.User)
 ], Task.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)((type) => comment_entity_1.Comment, (comment) => comment.task),
+    (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, (comment) => comment.task),
     __metadata("design:type", Array)
 ], Task.prototype, "comments", void 0);
 exports.Task = Task = __decorate([

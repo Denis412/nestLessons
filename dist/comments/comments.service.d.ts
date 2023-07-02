@@ -8,10 +8,6 @@ export declare class CommentsService {
     create(createCommentDto: CreateCommentDto): Promise<CreateCommentDto & Comment>;
     findAll(): Promise<Comment[]>;
     findOne(id: number): Promise<Comment>;
-    update(id: number, updateCommentDto: UpdateCommentDto): Promise<{
-        id: number;
-        description?: string;
-        task?: import("../tasks/entities/task.entity").Task;
-    } & Comment>;
+    update(id: number, updateCommentDto: UpdateCommentDto): Promise<UpdateCommentDto & Comment>;
     remove(id: number): Promise<void>;
 }
