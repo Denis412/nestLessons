@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, Put } from "@nestjs/common";
 import { CommentsService } from "./comments.service";
-import { CreateCommentDto } from "./dto/create-comment.dto";
-import { UpdateCommentDto } from "./dto/update-comment.dto";
+import { CreateCommentDto, CreateCommentSchema } from "./dto/create-comment.dto";
+import { UpdateCommentDto, UpdateCommentSchema } from "./dto/update-comment.dto";
 import { ApiTags, ApiResponse, ApiBearerAuth } from "@nestjs/swagger";
 import { Comment } from "./entities/comment.entity";
+import { JoiValidationPipe } from "src/pipes/ValidationPipe";
 
 @ApiTags("Comments")
 @ApiBearerAuth()
@@ -18,6 +19,7 @@ export class CommentsController {
   })
   @ApiResponse({ status: 401, description: "Неавторизованно" })
   @Post()
+  @UsePipes(new JoiValidationPipe(CreateCommentSchema))
   create(@Body() createCommentDto: CreateCommentDto): Promise<CreateCommentDto & Comment> {
     return this.commentsService.create(createCommentDto);
   }
@@ -33,6 +35,7 @@ export class CommentsController {
   }
 
   @Patch(":id")
+  @UsePipes(new JoiValidationPipe(UpdateCommentSchema))
   update(
     @Param("id") id: string,
     @Body() updateCommentDto: UpdateCommentDto

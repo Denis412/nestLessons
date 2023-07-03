@@ -9,25 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LocalStrategy = void 0;
-const passport_1 = require("@nestjs/passport");
-const passport_local_1 = require("passport-local");
+exports.JoiValidationPipe = void 0;
 const common_1 = require("@nestjs/common");
-const auth_service_1 = require("./auth.service");
-let LocalStrategy = exports.LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
-    constructor(authService) {
-        super({
-            usernameField: "email",
-            passwordField: "password",
-        });
-        this.authService = authService;
+let JoiValidationPipe = exports.JoiValidationPipe = class JoiValidationPipe {
+    constructor(schema) {
+        this.schema = schema;
     }
-    async validate(email, password) {
-        return await this.authService.validateUser(email, password);
+    transform(value, metadata) {
+        const { error } = this.schema.validate(value);
+        if (error) {
+            throw new common_1.BadRequestException(error.details);
+        }
+        return value;
     }
 };
-exports.LocalStrategy = LocalStrategy = __decorate([
+exports.JoiValidationPipe = JoiValidationPipe = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
-], LocalStrategy);
-//# sourceMappingURL=local.strategy.js.map
+    __metadata("design:paramtypes", [Object])
+], JoiValidationPipe);
+//# sourceMappingURL=ValidationPipe.js.map

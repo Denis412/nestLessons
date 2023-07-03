@@ -17,8 +17,8 @@ const common_1 = require("@nestjs/common");
 const tasks_service_1 = require("./tasks.service");
 const create_task_dto_1 = require("./dto/create-task.dto");
 const update_task_dto_1 = require("./dto/update-task.dto");
-const passport_1 = require("@nestjs/passport");
 const swagger_1 = require("@nestjs/swagger");
+const ValidationPipe_1 = require("../pipes/ValidationPipe");
 let TasksController = exports.TasksController = class TasksController {
     constructor(tasksService) {
         this.tasksService = tasksService;
@@ -41,13 +41,13 @@ let TasksController = exports.TasksController = class TasksController {
 };
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UsePipes)(new ValidationPipe_1.JoiValidationPipe(create_task_dto_1.CreateTaskSchema)),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_task_dto_1.CreateTaskDto]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "create", null);
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -55,14 +55,15 @@ __decorate([
 ], TasksController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(":id"),
-    __param(0, (0, common_1.Param)("id")),
+    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(":id"),
-    __param(0, (0, common_1.Param)("id")),
+    (0, common_1.UsePipes)(new ValidationPipe_1.JoiValidationPipe(update_task_dto_1.UpdateTaskSchema)),
+    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_task_dto_1.UpdateTaskDto]),
@@ -70,7 +71,7 @@ __decorate([
 ], TasksController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(":id"),
-    __param(0, (0, common_1.Param)("id")),
+    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

@@ -19,6 +19,7 @@ const create_user_dto_1 = require("./users/dto/create-user.dto");
 const users_service_1 = require("./users/users.service");
 const auth_service_1 = require("./auth/auth.service");
 const swagger_1 = require("@nestjs/swagger");
+const ValidationPipe_1 = require("./pipes/ValidationPipe");
 let AppController = exports.AppController = class AppController {
     constructor(authService, usersService) {
         this.authService = authService;
@@ -27,12 +28,13 @@ let AppController = exports.AppController = class AppController {
     register(createUserDto) {
         return this.usersService.register(createUserDto);
     }
-    async login(req) {
+    login(req) {
         return this.authService.login(req.user);
     }
 };
 __decorate([
     (0, common_1.Post)("auth/register"),
+    (0, common_1.UsePipes)(new ValidationPipe_1.JoiValidationPipe(create_user_dto_1.CreateUserSchema)),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
@@ -44,7 +46,7 @@ __decorate([
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", Object)
 ], AppController.prototype, "login", null);
 exports.AppController = AppController = __decorate([
     (0, swagger_1.ApiTags)("Auth"),

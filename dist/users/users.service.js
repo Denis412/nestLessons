@@ -35,13 +35,13 @@ let UsersService = exports.UsersService = class UsersService {
             return false;
         return await bcrypt.compare(createUserDto.password, user.password);
     }
-    findAll() {
+    async findAll() {
         return this.repository.find();
     }
-    findOne(email) {
+    async findOne(email) {
         return this.repository.findOneBy({ email });
     }
-    update(id, updateUserDto) {
+    async update(id, updateUserDto) {
         return this.repository.save({ ...updateUserDto, id });
     }
     remove(id) {

@@ -19,6 +19,7 @@ const create_comment_dto_1 = require("./dto/create-comment.dto");
 const update_comment_dto_1 = require("./dto/update-comment.dto");
 const swagger_1 = require("@nestjs/swagger");
 const comment_entity_1 = require("./entities/comment.entity");
+const ValidationPipe_1 = require("../pipes/ValidationPipe");
 let CommentsController = exports.CommentsController = class CommentsController {
     constructor(commentsService) {
         this.commentsService = commentsService;
@@ -47,6 +48,7 @@ __decorate([
     }),
     (0, swagger_1.ApiResponse)({ status: 401, description: "Неавторизованно" }),
     (0, common_1.Post)(),
+    (0, common_1.UsePipes)(new ValidationPipe_1.JoiValidationPipe(create_comment_dto_1.CreateCommentSchema)),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_comment_dto_1.CreateCommentDto]),
@@ -67,6 +69,7 @@ __decorate([
 ], CommentsController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(":id"),
+    (0, common_1.UsePipes)(new ValidationPipe_1.JoiValidationPipe(update_comment_dto_1.UpdateCommentSchema)),
     __param(0, (0, common_1.Param)("id")),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),

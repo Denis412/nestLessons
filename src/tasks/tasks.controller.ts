@@ -1,10 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  ParseIntPipe,
+  UsePipes,
+} from "@nestjs/common";
 import { TasksService } from "./tasks.service";
-import { CreateTaskDto } from "./dto/create-task.dto";
-import { UpdateTaskDto } from "./dto/update-task.dto";
+import { CreateTaskDto, CreateTaskSchema } from "./dto/create-task.dto";
+import { UpdateTaskDto, UpdateTaskSchema } from "./dto/update-task.dto";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiTags } from "@nestjs/swagger";
 import { Task } from "./entities/task.entity";
+import { JoiValidationPipe } from "src/pipes/ValidationPipe";
 
 @ApiTags("Tasks")
 @Controller("tasks")
@@ -12,31 +24,33 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
+  @UsePipes(new JoiValidationPipe(CreateTaskSchema))
   create(@Body() createTaskDto: CreateTaskDto): Promise<CreateTaskDto & Task> {
     return this.tasksService.create(createTaskDto);
   }
 
-  @UseGuards(AuthGuard("jwt"))
+  // @UseGuards(AuthGuard("jwt"))
   @Get()
   findAll(): Promise<Task[]> {
     return this.tasksService.findAll();
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string): Promise<Task> {
+  findOne(@Param("id", ParseIntPipe) id: string): Promise<Task> {
     return this.tasksService.findOne(+id);
   }
 
   @Patch(":id")
+  @UsePipes(new JoiValidationPipe(UpdateTaskSchema))
   update(
-    @Param("id") id: string,
+    @Param("id", ParseIntPipe) id: string,
     @Body() updateTaskDto: UpdateTaskDto
   ): Promise<UpdateTaskDto & Task> {
     return this.tasksService.update(+id, updateTaskDto);
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string): Promise<void> {
+  remove(@Param("id", ParseIntPipe) id: string): Promise<void> {
     return this.tasksService.remove(+id);
   }
 }

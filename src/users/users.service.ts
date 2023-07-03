@@ -26,15 +26,15 @@ export class UsersService {
     return await bcrypt.compare(createUserDto.password, user.password);
   }
 
-  findAll(): Promise<User[]> {
+  async findAll(): Promise<User[]> {
     return this.repository.find();
   }
 
-  findOne(email: string): Promise<User> {
+  async findOne(email: string): Promise<User> {
     return this.repository.findOneBy({ email });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto): Promise<UpdateUserDto & User> {
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<UpdateUserDto & User> {
     return this.repository.save({ ...updateUserDto, id });
   }
 
