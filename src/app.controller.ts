@@ -23,7 +23,7 @@ export class AppController {
 
   @UseGuards(AuthGuard("local"))
   @Post("auth/login")
-  login(@Request() req): { access_token: string } {
-    return this.authService.login(req.user);
+  async login(@Request() req): Promise<{ access_token: string }> {
+    return await this.authService.login(req.user);
   }
 }

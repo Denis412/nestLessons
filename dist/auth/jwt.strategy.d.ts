@@ -1,4 +1,4 @@
-import { Strategy } from "passport-local";
+import { Strategy } from "passport-jwt";
 import { AuthService } from "./auth.service";
 declare const JWTStrategy_base: new (...args: any[]) => Strategy;
 export declare class JWTStrategy extends JWTStrategy_base {

@@ -62,9 +62,8 @@ __decorate([
 ], TasksController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(":id"),
-    (0, common_1.UsePipes)(new ValidationPipe_1.JoiValidationPipe(update_task_dto_1.UpdateTaskSchema)),
     __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Body)()),
+    __param(1, (0, common_1.Body)(new ValidationPipe_1.JoiValidationPipe(update_task_dto_1.UpdateTaskSchema))),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_task_dto_1.UpdateTaskDto]),
     __metadata("design:returntype", Promise)

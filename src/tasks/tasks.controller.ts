@@ -41,10 +41,9 @@ export class TasksController {
   }
 
   @Patch(":id")
-  @UsePipes(new JoiValidationPipe(UpdateTaskSchema))
   update(
     @Param("id", ParseIntPipe) id: string,
-    @Body() updateTaskDto: UpdateTaskDto
+    @Body(new JoiValidationPipe(UpdateTaskSchema)) updateTaskDto: UpdateTaskDto
   ): Promise<UpdateTaskDto & Task> {
     return this.tasksService.update(+id, updateTaskDto);
   }

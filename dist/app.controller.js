@@ -28,8 +28,8 @@ let AppController = exports.AppController = class AppController {
     register(createUserDto) {
         return this.usersService.register(createUserDto);
     }
-    login(req) {
-        return this.authService.login(req.user);
+    async login(req) {
+        return await this.authService.login(req.user);
     }
 };
 __decorate([
@@ -46,7 +46,7 @@ __decorate([
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Object)
+    __metadata("design:returntype", Promise)
 ], AppController.prototype, "login", null);
 exports.AppController = AppController = __decorate([
     (0, swagger_1.ApiTags)("Auth"),
