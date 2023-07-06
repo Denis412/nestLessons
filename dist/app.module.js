@@ -23,8 +23,6 @@ const comment_entity_1 = require("./comments/entities/comment.entity");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const user_entity_1 = require("./users/entities/user.entity");
-const jwt_1 = require("@nestjs/jwt");
-const constants_1 = require("./auth/constants");
 let AppModule = exports.AppModule = class AppModule {
     constructor(dataSource) {
         this.dataSource = dataSource;
@@ -47,10 +45,6 @@ exports.AppModule = AppModule = __decorate([
                 synchronize: true,
             }),
             tasks_module_1.TasksModule,
-            jwt_1.JwtModule.register({
-                secret: constants_1.jwtConstants.secret,
-                signOptions: { expiresIn: "3600s" },
-            }),
             comments_module_1.CommentsModule,
             users_module_1.UsersModule,
             auth_module_1.AuthModule,

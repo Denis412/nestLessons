@@ -14,11 +14,12 @@ import { TasksService } from "./tasks.service";
 import { CreateTaskDto, CreateTaskSchema } from "./dto/create-task.dto";
 import { UpdateTaskDto, UpdateTaskSchema } from "./dto/update-task.dto";
 import { AuthGuard } from "@nestjs/passport";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Task } from "./entities/task.entity";
 import { JoiValidationPipe } from "src/pipes/ValidationPipe";
 
 @ApiTags("Tasks")
+@ApiBearerAuth()
 @Controller("tasks")
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
@@ -29,7 +30,7 @@ export class TasksController {
     return this.tasksService.create(createTaskDto);
   }
 
-  // @UseGuards(AuthGuard("jwt"))
+  @UseGuards(AuthGuard("jwt"))
   @Get()
   findAll(): Promise<Task[]> {
     return this.tasksService.findAll();

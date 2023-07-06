@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const tasks_service_1 = require("./tasks.service");
 const create_task_dto_1 = require("./dto/create-task.dto");
 const update_task_dto_1 = require("./dto/update-task.dto");
+const passport_1 = require("@nestjs/passport");
 const swagger_1 = require("@nestjs/swagger");
 const ValidationPipe_1 = require("../pipes/ValidationPipe");
 let TasksController = exports.TasksController = class TasksController {
@@ -48,6 +49,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "create", null);
 __decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -77,6 +79,7 @@ __decorate([
 ], TasksController.prototype, "remove", null);
 exports.TasksController = TasksController = __decorate([
     (0, swagger_1.ApiTags)("Tasks"),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)("tasks"),
     __metadata("design:paramtypes", [tasks_service_1.TasksService])
 ], TasksController);

@@ -15,7 +15,8 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(email: string, password: string): Promise<any> {
-    return await this.authService.validateUser(email, password);
+  async validate(payload: any): Promise<any> {
+    return { userId: payload.sub, username: payload.username };
+    // return await this.authService.validateUser(email, password);
   }
 }

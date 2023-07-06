@@ -25,8 +25,8 @@ let JWTStrategy = exports.JWTStrategy = class JWTStrategy extends (0, passport_1
         });
         this.authService = authService;
     }
-    async validate(email, password) {
-        return await this.authService.validateUser(email, password);
+    async validate(payload) {
+        return { userId: payload.sub, username: payload.username };
     }
 };
 exports.JWTStrategy = JWTStrategy = __decorate([

@@ -30,10 +30,6 @@ import { jwtConstants } from "./auth/constants";
       synchronize: true,
     }),
     TasksModule,
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: "3600s" },
-    }),
     CommentsModule,
     UsersModule,
     AuthModule,
