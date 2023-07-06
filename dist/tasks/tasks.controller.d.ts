@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { TasksService } from "./tasks.service";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
@@ -10,4 +11,5 @@ export declare class TasksController {
     findOne(id: string): Promise<Task>;
     update(id: string, updateTaskDto: UpdateTaskDto): Promise<UpdateTaskDto & Task>;
     remove(id: string): Promise<void>;
+    uploadFile(file: Express.Multer.File): void;
 }

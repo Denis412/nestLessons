@@ -24,6 +24,9 @@ let TasksService = exports.TasksService = class TasksService {
     create(createTaskDto) {
         return this.repository.save(createTaskDto);
     }
+    uploadFile(file) {
+        return;
+    }
     findAll() {
         return this.repository.find();
     }

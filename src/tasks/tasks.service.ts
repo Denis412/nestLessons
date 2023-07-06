@@ -13,6 +13,10 @@ export class TasksService {
     return this.repository.save(createTaskDto);
   }
 
+  uploadFile(file: Express.Multer.File) {
+    return;
+  }
+
   findAll(): Promise<Task[]> {
     return this.repository.find();
   }

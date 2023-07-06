@@ -20,6 +20,10 @@ const update_task_dto_1 = require("./dto/update-task.dto");
 const passport_1 = require("@nestjs/passport");
 const swagger_1 = require("@nestjs/swagger");
 const ValidationPipe_1 = require("../pipes/ValidationPipe");
+const logging_interceptor_1 = require("../interceptors/logging.interceptor");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
+const file_upload_1 = require("../utils/file-upload");
 let TasksController = exports.TasksController = class TasksController {
     constructor(tasksService) {
         this.tasksService = tasksService;
@@ -39,6 +43,7 @@ let TasksController = exports.TasksController = class TasksController {
     remove(id) {
         return this.tasksService.remove(+id);
     }
+    uploadFile(file) { }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -49,7 +54,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "create", null);
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -57,6 +61,7 @@ __decorate([
 ], TasksController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(":id"),
+    (0, common_1.UseInterceptors)(logging_interceptor_1.LoggingInterceptor),
     __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -77,8 +82,22 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Post)("upload"),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)("file", {
+        storage: (0, multer_1.diskStorage)({
+            destination: "./uploads",
+            filename: file_upload_1.editFileName,
+        }),
+    })),
+    __param(0, (0, common_1.UploadedFile)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], TasksController.prototype, "uploadFile", null);
 exports.TasksController = TasksController = __decorate([
     (0, swagger_1.ApiTags)("Tasks"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)("tasks"),
     __metadata("design:paramtypes", [tasks_service_1.TasksService])

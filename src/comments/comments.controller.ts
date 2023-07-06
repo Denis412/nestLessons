@@ -1,12 +1,25 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, Put } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UsePipes,
+  Put,
+  UseGuards,
+} from "@nestjs/common";
 import { CommentsService } from "./comments.service";
 import { CreateCommentDto, CreateCommentSchema } from "./dto/create-comment.dto";
 import { UpdateCommentDto, UpdateCommentSchema } from "./dto/update-comment.dto";
 import { ApiTags, ApiResponse, ApiBearerAuth } from "@nestjs/swagger";
 import { Comment } from "./entities/comment.entity";
 import { JoiValidationPipe } from "src/pipes/ValidationPipe";
+import { AuthGuard } from "@nestjs/passport";
 
 @ApiTags("Comments")
+@UseGuards(AuthGuard("jwt"))
 @ApiBearerAuth()
 @Controller("comments")
 export class CommentsController {

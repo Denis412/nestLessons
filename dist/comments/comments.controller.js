@@ -20,6 +20,7 @@ const update_comment_dto_1 = require("./dto/update-comment.dto");
 const swagger_1 = require("@nestjs/swagger");
 const comment_entity_1 = require("./entities/comment.entity");
 const ValidationPipe_1 = require("../pipes/ValidationPipe");
+const passport_1 = require("@nestjs/passport");
 let CommentsController = exports.CommentsController = class CommentsController {
     constructor(commentsService) {
         this.commentsService = commentsService;
@@ -85,6 +86,7 @@ __decorate([
 ], CommentsController.prototype, "remove", null);
 exports.CommentsController = CommentsController = __decorate([
     (0, swagger_1.ApiTags)("Comments"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)("comments"),
     __metadata("design:paramtypes", [comments_service_1.CommentsService])

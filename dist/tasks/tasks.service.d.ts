@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
 import { Repository } from "typeorm";
@@ -6,6 +7,7 @@ export declare class TasksService {
     private repository;
     constructor(repository: Repository<Task>);
     create(createTaskDto: CreateTaskDto): Promise<CreateTaskDto & Task>;
+    uploadFile(file: Express.Multer.File): void;
     findAll(): Promise<Task[]>;
     findOne(id: number): Promise<Task>;
     update(id: number, updateTaskDto: UpdateTaskDto): Promise<UpdateTaskDto & Task>;
