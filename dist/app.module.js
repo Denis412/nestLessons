@@ -23,6 +23,8 @@ const comment_entity_1 = require("./comments/entities/comment.entity");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const user_entity_1 = require("./users/entities/user.entity");
+const bull_1 = require("@nestjs/bull");
+const moderation_module_1 = require("./moderation/moderation.module");
 let AppModule = exports.AppModule = class AppModule {
     constructor(dataSource) {
         this.dataSource = dataSource;
@@ -44,7 +46,14 @@ exports.AppModule = AppModule = __decorate([
                 entities: [task_entity_1.Task, comment_entity_1.Comment, user_entity_1.User],
                 synchronize: true,
             }),
+            bull_1.BullModule.forRoot({
+                redis: {
+                    host: "localhost",
+                    port: 6379,
+                },
+            }),
             tasks_module_1.TasksModule,
+            moderation_module_1.ModerationModule,
             comments_module_1.CommentsModule,
             users_module_1.UsersModule,
             auth_module_1.AuthModule,

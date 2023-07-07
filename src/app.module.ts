@@ -11,8 +11,8 @@ import { Comment } from "./comments/entities/comment.entity";
 import { UsersModule } from "./users/users.module";
 import { AuthModule } from "./auth/auth.module";
 import { User } from "./users/entities/user.entity";
-import { JwtModule } from "@nestjs/jwt";
-import { jwtConstants } from "./auth/constants";
+import { BullModule } from "@nestjs/bull";
+import { ModerationModule } from "./moderation/moderation.module";
 
 @Module({
   controllers: [AppController],
@@ -29,7 +29,14 @@ import { jwtConstants } from "./auth/constants";
       entities: [Task, Comment, User],
       synchronize: true,
     }),
+    BullModule.forRoot({
+      redis: {
+        host: "localhost",
+        port: 6379,
+      },
+    }),
     TasksModule,
+    ModerationModule,
     CommentsModule,
     UsersModule,
     AuthModule,
