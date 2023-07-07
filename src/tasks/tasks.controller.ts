@@ -26,7 +26,7 @@ import { diskStorage } from "multer";
 import { editFileName } from "src/utils/file-upload";
 
 @ApiTags("Tasks")
-@UseGuards(AuthGuard("jwt"))
+// @UseGuards(AuthGuard("jwt"))
 @ApiBearerAuth()
 @Controller("tasks")
 export class TasksController {

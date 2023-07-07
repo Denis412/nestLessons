@@ -6,6 +6,7 @@ export declare class AppController {
     private readonly authService;
     private readonly usersService;
     constructor(authService: AuthService, usersService: UsersService);
+    getHello(): string;
     register(createUserDto: CreateUserDto): Promise<CreateUserDto & User>;
     login(req: any): Promise<{
         access_token: string;

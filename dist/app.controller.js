@@ -25,6 +25,9 @@ let AppController = exports.AppController = class AppController {
         this.authService = authService;
         this.usersService = usersService;
     }
+    getHello() {
+        return "Hello World!";
+    }
     register(createUserDto) {
         return this.usersService.register(createUserDto);
     }
@@ -32,6 +35,12 @@ let AppController = exports.AppController = class AppController {
         return await this.authService.login(req.user);
     }
 };
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "getHello", null);
 __decorate([
     (0, common_1.Post)("auth/register"),
     (0, common_1.UsePipes)(new ValidationPipe_1.JoiValidationPipe(create_user_dto_1.CreateUserSchema)),

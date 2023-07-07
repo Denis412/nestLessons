@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Request, UseGuards, UsePipes } from "@nestjs/common";
+import { Body, Controller, Get, Post, Request, UseGuards, UsePipes } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { CreateUserDto, CreateUserSchema } from "./users/dto/create-user.dto";
 import { UsersService } from "./users/users.service";
@@ -14,6 +14,11 @@ export class AppController {
     private readonly authService: AuthService,
     private readonly usersService: UsersService
   ) {}
+
+  @Get()
+  getHello() {
+    return "Hello World!";
+  }
 
   @Post("auth/register")
   @UsePipes(new JoiValidationPipe(CreateUserSchema))

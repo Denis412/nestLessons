@@ -19,7 +19,7 @@ import { JoiValidationPipe } from "src/pipes/ValidationPipe";
 import { AuthGuard } from "@nestjs/passport";
 
 @ApiTags("Comments")
-@UseGuards(AuthGuard("jwt"))
+// @UseGuards(AuthGuard("jwt"))
 @ApiBearerAuth()
 @Controller("comments")
 export class CommentsController {
